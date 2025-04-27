@@ -48,6 +48,11 @@ export const RESOURCES = {
     filename: "08-Publishing-to-npm.md",
     title: "TypeScript Package Setup - Publishing to npm",
     description: "Publish your package to npm registry"
+  },
+  "npm-organizations-guide": {
+    filename: "09-npm-Organizations-Guide.md",
+    title: "Comprehensive Guide to npm Organizations (Scopes)",
+    description: "Learn how to use npm organizations and scopes effectively"
   }
 };
 

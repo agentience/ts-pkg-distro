@@ -30,15 +30,16 @@ server.addTool({
   description: "Get a specific guide by name",
   parameters: z.object({
     guide: z.enum([
-      "orchestrator", 
-      "project-assessment", 
-      "initial-setup", 
-      "typescript-configuration", 
-      "package-configuration", 
-      "executable-setup", 
-      "build-and-test", 
-      "publishing-preparation", 
-      "publishing-to-npm"
+      "orchestrator",
+      "project-assessment",
+      "initial-setup",
+      "typescript-configuration",
+      "package-configuration",
+      "executable-setup",
+      "build-and-test",
+      "publishing-preparation",
+      "publishing-to-npm",
+      "npm-organizations-guide"
     ] as const).describe("The name of the guide to retrieve")
   }),
   execute: async (args) => {
@@ -55,7 +56,7 @@ server.addTool({
   parameters: z.object({}),
   execute: async () => {
     const guideList = Object.entries(RESOURCES)
-      .map(([name, info]) => `- **${info.title}**: type-pack-distro://${name}`)
+      .map(([name, info]) => `- **${info.title}**: ts-pkg-distro://${name}`)
       .join("\n");
       
     return `# TypeScript Package Distribution Guides\n\nThe following guides are available in sequence:\n\n${guideList}\n\nUse the \`get_guide\` tool with the guide parameter to access a specific guide.`;
@@ -68,14 +69,15 @@ server.addTool({
   description: "Get the next guide in sequence after the current one",
   parameters: z.object({
     current_guide: z.enum([
-      "orchestrator", 
-      "project-assessment", 
-      "initial-setup", 
-      "typescript-configuration", 
-      "package-configuration", 
-      "executable-setup", 
-      "build-and-test", 
-      "publishing-preparation"
+      "orchestrator",
+      "project-assessment",
+      "initial-setup",
+      "typescript-configuration",
+      "package-configuration",
+      "executable-setup",
+      "build-and-test",
+      "publishing-preparation",
+      "publishing-to-npm"
     ] as const).describe("The name of the current guide")
   }),
   execute: async (args) => {
@@ -89,7 +91,8 @@ server.addTool({
       "executable-setup",
       "build-and-test",
       "publishing-preparation",
-      "publishing-to-npm"
+      "publishing-to-npm",
+      "npm-organizations-guide"
     ];
     
     // Find the current guide index
@@ -103,7 +106,7 @@ server.addTool({
     // Add type assertion to fix the indexing error
     const nextGuide = RESOURCES[nextGuideName as keyof typeof RESOURCES];
     
-    return `# Next Guide: ${nextGuide.title}\n\nAccess at: type-pack-distro://${nextGuideName}\n\n${readMarkdownResource(nextGuide.filename)}`;
+    return `# Next Guide: ${nextGuide.title}\n\nAccess at: ts-pkg-distro://${nextGuideName}\n\n${readMarkdownResource(nextGuide.filename)}`;
   },
 });
 
