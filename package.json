@@ -1,0 +1,38 @@
+{
+  "name": "ts-pkg-distro",
+  "version": "1.0.0",
+  "description": "MCP server for TypeScript package distribution resources",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && echo \"Package is ready for publishing\""
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "typescript",
+    "npm",
+    "package",
+    "distribution",
+    "mcp",
+    "fastmcp"
+  ],
+  "author": "Troy Molander",
+  "license": "MIT",
+  "dependencies": {
+    "fastmcp": "^1.1.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}

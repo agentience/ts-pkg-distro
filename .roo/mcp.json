@@ -1,0 +1,10 @@
+{
+  "mcpServers": {    
+    "cloudscape-assistant": {
+      "type": "sse",
+      "url": "http://localhost:3001/sse",
+      "disabled": false,
+      "alwaysAllow": []
+    }    
+  }
+}
