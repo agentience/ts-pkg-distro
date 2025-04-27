@@ -262,31 +262,40 @@ When you want to update your package in the future:
 3. Update the version: `npm version patch|minor|major`
 4. Publish the updated package: `npm publish`
 
-## Using the npm-org Configuration Option
+## Package Name and Publishing
 
-The package supports an `npm-org` configuration option that determines whether your package is published with an organization namespace or not. This simplifies the publishing process, especially when using CI/CD.
+The package name in your `package.json` file determines how your package will be published to npm. The GitHub Actions workflow will use this name as-is without modifying it.
 
 ### How It Works
 
-1. Add the `npm-org` option to your `mcp-config.json` file:
+1. Set your desired package name in `package.json`:
    ```json
    {
-     "server": {
-       "name": "Your-Package-Name",
-       "version": "1.0.0"
-     },
-     "npm-org": "your-org-name"
+     "name": "your-package-name",
+     "version": "1.0.0",
+     ...
+   }
+   ```
+   
+   Or for a scoped package:
+   ```json
+   {
+     "name": "@your-org-name/your-package-name",
+     "version": "1.0.0",
+     ...
    }
    ```
 
 2. When publishing:
-   - If `npm-org` is specified, the package will be published with the organization namespace (e.g., `@your-org-name/package-name`) and the `--access public` flag will be automatically applied
-   - If `npm-org` is not specified, the package will be published without an organization namespace
+   - If your package name starts with `@` (a scoped package), the `--access public` flag will be automatically applied
+   - If your package name doesn't start with `@` (a regular package), it will be published without the `--access public` flag
 
 3. Benefits:
-   - Consistent package naming across development and CI/CD environments
+   - Package name in `package.json` is always respected
+   - No runtime modifications to your package.json
    - Automatic handling of the `--access public` flag for scoped packages
-   - Simplified configuration management for projects with multiple packages
+   - Simplified publishing process for both local and CI/CD environments
+   - No dependency on npm-org configuration or NPM_ORG environment variable
 
 ## CI/CD Integration
 
@@ -297,34 +306,34 @@ The script can set up CI/CD using GitHub Actions for automated publishing. This 
 3. Adding the token as a secret in your GitHub repository settings with the name `NPM_TOKEN`
 4. Creating a new release in GitHub to trigger the workflow
 
-The CI/CD workflow automatically detects the `npm-org` configuration and adjusts the package name and publishing command accordingly:
+The CI/CD workflow automatically detects whether your package is scoped and applies the appropriate publishing command:
 
 ```yaml
-# Determine if we need to use an npm organization
-- name: Check for npm organization config
-  id: npm-org-check
+# Check if package name is scoped (starts with @)
+- name: Check if package is scoped
+  id: package-check
   run: |
-    if [ -f mcp-config.json ]; then
-      NPM_ORG=$(node -e "try { const config = require('./mcp-config.json'); console.log(config['npm-org'] || ''); } catch(e) { console.log(''); }")
-      echo "NPM_ORG=$NPM_ORG" >> $GITHUB_ENV
-      echo "Found npm-org in config: $NPM_ORG"
-    fi
+    IS_SCOPED=$(node -e "const pkg = require('./package.json'); console.log(pkg.name.startsWith('@') ? 'true' : 'false');")
+    echo "IS_SCOPED=$IS_SCOPED" >> $GITHUB_ENV
+    echo "Package name from package.json: $(node -e "console.log(require('./package.json').name)")"
 
-# Publish with or without organization namespace
+# Publish package based on whether it's scoped or not
 - name: Publish package
   run: |
-    if [ -n "$NPM_ORG" ]; then
-      # Update package.json name to include organization
-      node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.name = '@${{ env.NPM_ORG }}/' + pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
-      echo "Publishing with organization namespace: @${{ env.NPM_ORG }}"
+    if [ "$IS_SCOPED" = "true" ]; then
+      echo "Publishing scoped package with --access public"
       npm publish --access public
     else
-      # Update package.json name to remove organization if present
-      node -e "const fs = require('fs'); const pkg = require('./package.json'); if (pkg.name.startsWith('@')) { pkg.name = pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2)); }"
-      echo "Publishing without organization namespace"
+      echo "Publishing regular package"
       npm publish
     fi
 ```
+
+Note that this workflow:
+- Uses the package name directly from package.json without modification
+- Does not require any npm-org configuration
+- Does not depend on the NPM_ORG environment variable
+- Automatically detects scoped packages and applies the appropriate publishing command
 
 ## Conclusion
 

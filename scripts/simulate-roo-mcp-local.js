@@ -94,27 +94,48 @@ async function runTests() {
     // Run directly with Node.js for comparison
     const directResult = await runDirectly();
     
-    // Compare results
-    console.log('\n=== Results Comparison ===');
-    console.log(`Roo MCP: ${rooResult.output.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
-    console.log(`Direct: ${directResult.output.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    // Compare results - check both stdout and stderr
+    console.log('\n=== Results Comparison (Checking both stdout and stderr) ===');
+    
+    // Check for npm organization message in stdout
+    console.log(`Roo MCP stdout: ${rooResult.output.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    console.log(`Direct stdout: ${directResult.output.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    
+    // Check for npm organization message in stderr
+    console.log(`Roo MCP stderr: ${rooResult.errorOutput.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    console.log(`Direct stderr: ${directResult.errorOutput.includes('Using npm organization') ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    
+    // Check for npm organization message in either stdout or stderr
+    const rooHasNpmOrgLogs = rooResult.output.includes('Using npm organization') || rooResult.errorOutput.includes('Using npm organization');
+    const directHasNpmOrgLogs = directResult.output.includes('Using npm organization') || directResult.errorOutput.includes('Using npm organization');
+    
+    console.log(`Roo MCP (stdout+stderr): ${rooHasNpmOrgLogs ? 'Shows npm-org logs' : 'No npm-org logs'}`);
+    console.log(`Direct (stdout+stderr): ${directHasNpmOrgLogs ? 'Shows npm-org logs' : 'No npm-org logs'}`);
     
     // Conclusion
     console.log('\n=== Conclusion ===');
-    if (directResult.output.includes('Using npm organization') && !rooResult.output.includes('Using npm organization')) {
-      console.log('Console.log output is visible when running directly with Node.js, but not when running with the --verbose flag');
+    if (directHasNpmOrgLogs && !rooHasNpmOrgLogs) {
+      console.log('npm organization logs are visible when running directly with Node.js, but not when running with the --verbose flag');
       console.log('This suggests that the --verbose flag might be affecting how console.log output is handled');
       console.log('Possible solutions:');
       console.log('1. Add a handler for the --verbose flag in app.ts to ensure console.log output is visible');
       console.log('2. Modify the FastMCP server to ensure console.log output is visible when the --verbose flag is used');
-    } else if (!directResult.output.includes('Using npm organization') && !rooResult.output.includes('Using npm organization')) {
-      console.log('Console.log output is not visible in either case');
+    } else if (!directHasNpmOrgLogs && !rooHasNpmOrgLogs) {
+      console.log('npm organization logs are not visible in either case');
       console.log('This suggests that the issue is with the configuration or environment');
-    } else if (directResult.output.includes('Using npm organization') && rooResult.output.includes('Using npm organization')) {
-      console.log('Console.log output is visible in both cases');
+    } else if (directHasNpmOrgLogs && rooHasNpmOrgLogs) {
+      console.log('npm organization logs are visible in both cases');
       console.log('This suggests that the issue is not with the --verbose flag, but with how Roo handles the output');
     } else {
       console.log('Unexpected results. Further investigation is needed.');
+    }
+    
+    // Additional analysis for stderr vs stdout
+    console.log('\n=== Additional Analysis ===');
+    if (directResult.errorOutput.includes('Using npm organization') && !directResult.output.includes('Using npm organization')) {
+      console.log('npm organization logs are being sent to stderr, not stdout');
+      console.log('This is expected based on the code in app.ts, which uses console.error for these messages');
+      console.log('Roo may need to capture stderr output to see these messages');
     }
   } catch (error) {
     console.error('Error running tests:', error);

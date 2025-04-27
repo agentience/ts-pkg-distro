@@ -35,19 +35,19 @@ function loadConfig(configPath?: string): PackageConfig {
     try {
       const configData = fs.readFileSync(filePath, 'utf8');
       const config = JSON.parse(configData) as PackageConfig;
-      // Use console.error for important logs to ensure they're visible in npx
-      console.error(`Loaded configuration from ${filePath}`);
+      // Use console.log for important logs to ensure they're visible in Roo
+      console.log(`Loaded configuration from ${filePath}`);
       
       if (config.server) {
-        console.error(`Using server configuration: ${JSON.stringify(config.server)}`);
+        console.log(`Using server configuration: ${JSON.stringify(config.server)}`);
       }
       
       if (config['npm-org']) {
-        console.error(`Using npm organization: ${config['npm-org']}`);
+        console.log(`Using npm organization: ${config['npm-org']}`);
       }
       
       if (config.verbose) {
-        console.error('Verbose logging enabled');
+        console.log('Verbose logging enabled');
       }
       
       return config;
@@ -257,12 +257,12 @@ function main() {
   
   // If verbose is enabled, log additional information
   if (config.verbose) {
-    // Use console.error for important logs to ensure they're visible in npx
-    console.error(`Server started with name: ${(serverInstance as any)._serverName}`);
-    console.error(`Server version: ${(serverInstance as any)._serverVersion}`);
-    console.error(`Transport type: ${config.transport?.type || "stdio"}`);
+    // Use console.log for important logs to ensure they're visible in Roo
+    console.log(`Server started with name: ${(serverInstance as any)._serverName}`);
+    console.log(`Server version: ${(serverInstance as any)._serverVersion}`);
+    console.log(`Transport type: ${config.transport?.type || "stdio"}`);
     if (config['npm-org']) {
-      console.error(`npm organization: ${config['npm-org']}`);
+      console.log(`npm organization: ${config['npm-org']}`);
     }
   }
 }

@@ -43,37 +43,24 @@ function createTempPackageJson(name = 'test-package') {
 function simulateWorkflow(configPath, pkgPath) {
   console.log('\n--- Simulating GitHub workflow behavior ---');
   
-  // Read the config file
-  const configData = fs.readFileSync(configPath, 'utf8');
-  const config = JSON.parse(configData);
-  
-  // Check for npm-org
-  const npmOrg = config['npm-org'] || '';
-  console.log(`Found npm-org in config: ${npmOrg || 'Not specified'}`);
-  
   // Read the package.json file
   const pkgData = fs.readFileSync(pkgPath, 'utf8');
   const pkg = JSON.parse(pkgData);
   
-  console.log(`Original package name: ${pkg.name}`);
+  console.log(`Package name from package.json: ${pkg.name}`);
   
   // Simulate the GitHub workflow behavior
-  if (npmOrg) {
-    // Update package.json name to include organization
-    const originalName = pkg.name;
-    pkg.name = `@${npmOrg}/${pkg.name.replace(/^@.*\//, '')}`;
-    console.log(`Updated package name: ${pkg.name}`);
+  const isScoped = pkg.name.startsWith('@');
+  
+  if (isScoped) {
+    console.log(`Package is scoped (starts with @)`);
     console.log(`Would publish with command: npm publish --access public`);
   } else {
-    // Update package.json name to remove organization if present
-    if (pkg.name.startsWith('@')) {
-      const originalName = pkg.name;
-      pkg.name = pkg.name.replace(/^@.*\//, '');
-      console.log(`Updated package name: ${pkg.name}`);
-    }
+    console.log(`Package is not scoped`);
     console.log(`Would publish with command: npm publish`);
   }
   
+  // Note: We no longer modify the package.json name
   return pkg.name;
 }
 
@@ -90,31 +77,19 @@ function cleanup(configPath, pkgPath) {
 
 // Main function to run the verification
 function verifyNpmOrgConfig() {
-  console.log('=== Verifying npm-org Configuration Option ===\n');
+  console.log('=== Verifying Package Name Publishing Behavior ===\n');
   
-  // Test 1: With npm-org specified
-  console.log('\n=== Test 1: With npm-org specified ===');
-  const configPath1 = createTempConfig('agentience');
+  // Test 1: Regular package
+  console.log('\n=== Test 1: Regular package ===');
+  const configPath1 = createTempConfig();
   const pkgPath1 = createTempPackageJson('test-package');
   const result1 = simulateWorkflow(configPath1, pkgPath1);
   
-  // Test 2: Without npm-org specified
-  console.log('\n=== Test 2: Without npm-org specified ===');
+  // Test 2: Scoped package
+  console.log('\n=== Test 2: Scoped package ===');
   const configPath2 = createTempConfig();
-  const pkgPath2 = createTempPackageJson('test-package');
+  const pkgPath2 = createTempPackageJson('@existing-org/test-package');
   const result2 = simulateWorkflow(configPath2, pkgPath2);
-  
-  // Test 3: Backward compatibility (package already has org)
-  console.log('\n=== Test 3: Backward compatibility (package already has org) ===');
-  const configPath3 = createTempConfig();
-  const pkgPath3 = createTempPackageJson('@existing-org/test-package');
-  const result3 = simulateWorkflow(configPath3, pkgPath3);
-  
-  // Test 4: Overriding existing org
-  console.log('\n=== Test 4: Overriding existing org ===');
-  const configPath4 = createTempConfig('new-org');
-  const pkgPath4 = createTempPackageJson('@existing-org/test-package');
-  const result4 = simulateWorkflow(configPath4, pkgPath4);
   
   // Clean up
   cleanup(configPath1, pkgPath1);
@@ -124,22 +99,20 @@ function verifyNpmOrgConfig() {
   
   // Summary
   console.log('\n=== Verification Results ===');
-  console.log('Test 1 (With npm-org): Package name would be', result1);
-  console.log('Test 2 (Without npm-org): Package name would be', result2);
-  console.log('Test 3 (Backward compatibility): Package name would be', result3);
-  console.log('Test 4 (Overriding existing org): Package name would be', result4);
+  console.log('Test 1 (Regular package): Package name would be', result1);
+  console.log('Test 2 (Scoped package): Package name would be', result2);
   
   // Verification
-  const success = 
-    result1 === '@agentience/test-package' && 
-    result2 === 'test-package' && 
-    result3 === 'test-package' && 
-    result4 === '@new-org/test-package';
+  const success =
+    result1 === 'test-package' &&
+    result2 === '@existing-org/test-package';
   
   if (success) {
-    console.log('\n✅ All tests passed! The npm-org configuration option works as expected.');
+    console.log('\n✅ All tests passed! The package name is preserved as-is from package.json.');
+    console.log('✅ Scoped packages are published with --access public.');
+    console.log('✅ Regular packages are published without --access public.');
   } else {
-    console.log('\n❌ Some tests failed. The npm-org configuration option may not be working correctly.');
+    console.log('\n❌ Some tests failed. The package name is not being preserved correctly.');
   }
 }
 

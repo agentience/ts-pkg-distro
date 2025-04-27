@@ -1,0 +1,10 @@
+{
+  "server": {
+    "name": "ts-pkg-distro"
+  },
+  "transport": {
+    "type": "stdio",
+    "options": {}
+  },
+  "npm-org": "agentience"
+}

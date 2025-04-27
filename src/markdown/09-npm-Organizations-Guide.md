@@ -148,7 +148,7 @@ npm offers several pricing tiers for organizations:
    - Test packages locally before publishing
    - Use `npm pack` to verify package contents
    - Consider using a staging environment for testing
-   - Use the `npm-org` configuration option for consistent package naming
+   - Ensure your package.json has the correct package name before publishing
 
 9. **Organization Structure**:
    - Create separate teams for different projects or responsibilities
@@ -156,44 +156,39 @@ npm offers several pricing tiers for organizations:
    - Implement a review process for package changes
 
 10. **Configuration Management**:
-    - Use the `npm-org` configuration option in `mcp-config.json` to manage organization scopes
-    - Store configuration in version control to ensure consistency across environments
-    - Document configuration options and their effects in your project README
+     - Set the correct package name in `package.json` including organization scope if needed
+     - Store configuration in version control to ensure consistency across environments
+     - Document configuration options and their effects in your project README
 
 ## Publishing Packages Under Your Organization Scope
 
-### Using the npm-org Configuration Option (Recommended):
+### Setting Up Your Package for Organization Publishing:
 
-The package supports an `npm-org` configuration option that simplifies publishing packages under your organization scope. This is especially useful for CI/CD pipelines and maintaining consistent package naming across environments.
+To publish packages under your organization scope, you need to set the correct package name in your `package.json` file. This approach ensures consistency across all environments and respects your package configuration.
 
-1. Create or update your `mcp-config.json` file to include the `npm-org` option:
+1. Update your `package.json` file to include your organization scope in the name:
    ```json
    {
-     "server": {
-       "name": "Your-Package-Name",
-       "version": "1.0.0"
-     },
-     "transport": {
-       "type": "stdio",
-       "options": {}
-     },
-     "npm-org": "agentience"
+     "name": "@your-org-name/your-package-name",
+     "version": "1.0.0",
+     "description": "Your package description",
+     ...
    }
    ```
 
-2. The package will automatically:
-   - Update the package name in `package.json` to include your organization scope
-   - Add the `--access public` flag when publishing
+2. The publishing workflow will automatically:
+   - Use the package name exactly as specified in your package.json
+   - Add the `--access public` flag when publishing scoped packages
 
 3. Benefits:
-   - Consistent package naming across development and CI/CD environments
-   - Automatic handling of the `--access public` flag
-   - No need to manually modify `package.json` for each publish
-   - Simplified configuration management for projects with multiple packages
+   - Package name in `package.json` is always respected
+   - No runtime modifications to your package.json
+   - Automatic handling of the `--access public` flag for scoped packages
+   - Simplified publishing process for both local and CI/CD environments
 
 4. When using with GitHub Actions or other CI/CD systems:
-   - The workflow automatically detects the `npm-org` configuration
-   - Adjusts the package name and publishing command accordingly
+   - The workflow automatically detects whether your package is scoped
+   - Applies the appropriate publishing command
    - Ensures consistent publishing behavior across all environments
 
 ### Creating a New Scoped Package (Manual Method):

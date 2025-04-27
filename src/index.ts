@@ -150,8 +150,8 @@ export function startServer(options?: ServerConfig) {
   const serverName = (serverInstance as any)._serverName || "ts-pkg-distro";
   const serverVersion = pkg.version;
   
-  // Use console.error for important logs to ensure they're visible in npx
-  console.error(`${serverName} MCP server v${serverVersion} running...`);
+  // Use console.log for important logs to ensure they're visible in Roo
+  console.log(`${serverName} MCP server v${serverVersion} running...`);
   
   return serverInstance;
 }
