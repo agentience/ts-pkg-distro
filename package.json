@@ -1,20 +1,24 @@
 {
   "name": "@agentience/ts-pkg-distro",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP server for TypeScript package distribution resources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "ts-pkg-distro": "./dist/cli.js"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "prepare": "npm run build",
+    "prepare": "npm run build && chmod +x dist/cli.js",
     "prepublishOnly": "npm run build && echo \"Package is ready for publishing\""
   },
   "files": [
     "dist",
-    "src/markdown"
+    "src/markdown",
+    "examples"
   ],
   "keywords": [
     "typescript",

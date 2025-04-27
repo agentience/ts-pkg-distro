@@ -1,0 +1,13 @@
+{
+  "server": {
+    "name": "TS-PKG-Distro",
+    "version": "1.0.2"
+  },
+  "transport": {
+    "type": "http",
+    "options": {
+      "port": 3000,
+      "host": "localhost"
+    }
+  }
+}

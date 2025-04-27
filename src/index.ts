@@ -1,13 +1,12 @@
-import { FastMCP } from "fastmcp";
-import { z } from "zod";
-import { RESOURCES, readMarkdownResource, registerResourceHandlers } from "./resources";
+#!/usr/bin/env node
 
-// Create the FastMCP server with name and version
-const server = new FastMCP({
-  name: "TS-PKG-Distro",
-  version: "1.0.0",
-  // Remove description as it's not supported in ServerOptions
-});
+// Import from cli.ts to avoid circular dependencies
+import { server } from "./cli";
+import { RESOURCES, readMarkdownResource, registerResourceHandlers } from "./resources";
+import { z } from "zod";
+
+// Re-export the server
+export { server };
 
 // Register resource URI handlers
 registerResourceHandlers(server);

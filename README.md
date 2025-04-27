@@ -1,6 +1,6 @@
-# TS-PKG-Distro Server
+# @agentience/ts-pkg-distro Server
 
-[![npm version](https://img.shields.io/npm/v/ts-pkg-distro.svg)](https://www.npmjs.com/package/ts-pkg-distro)
+[![npm version](https://img.shields.io/npm/v/@agentience/ts-pkg-distro.svg)](https://www.npmjs.com/package/@agentience/ts-pkg-distro)
 
 A FastMCP server providing resources for TypeScript package distribution.
 
@@ -70,6 +70,110 @@ To start the server:
 For local development with hot reloading:
 ```
 npm run dev
+```
+
+## MCP Server Configuration
+
+You can configure the MCP server using a JSON configuration file. By default, the server looks for a file named `mcp-config.json` in the current directory, but you can specify a different path using the `--config` flag.
+
+### Configuration Options
+
+The configuration file supports the following options:
+
+```json
+{
+  "server": {
+    "name": "Custom Server Name",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "type": "stdio",
+    "options": {
+      // Transport-specific options
+    }
+  }
+}
+```
+
+#### Server Options
+
+- `name`: Custom name for the MCP server
+- `version`: Custom version for the MCP server
+
+#### Transport Options
+
+- `type`: The transport type to use (default: "stdio")
+  - Supported values: "stdio", "http", "websocket"
+- `options`: Transport-specific configuration options
+  - For HTTP: `{ "port": 3000, "host": "localhost" }`
+  - For WebSocket: `{ "port": 3000 }`
+
+### Example Configurations
+
+#### Basic Configuration (stdio)
+
+```json
+{
+  "server": {
+    "name": "TS-PKG-Distro",
+    "version": "1.0.2"
+  },
+  "transport": {
+    "type": "stdio"
+  }
+}
+```
+
+#### HTTP Server Configuration
+
+```json
+{
+  "server": {
+    "name": "TS-PKG-Distro",
+    "version": "1.0.2"
+  },
+  "transport": {
+    "type": "http",
+    "options": {
+      "port": 3000,
+      "host": "localhost"
+    }
+  }
+}
+```
+
+## Usage with npx
+
+You can run the MCP server directly using npx without installing it:
+
+```bash
+npx @agentience/ts-pkg-distro
+```
+
+To use a custom configuration file:
+
+```bash
+npx @agentience/ts-pkg-distro --config ./my-config.json
+```
+
+### Example Configuration Files
+
+The package includes example configuration files in the `examples` directory:
+
+- `examples/mcp-config.json` - Basic stdio configuration
+- `examples/http-config.json` - HTTP server configuration
+
+You can use these as templates for your own configuration:
+
+```bash
+# Copy an example configuration
+cp node_modules/@agentience/ts-pkg-distro/examples/http-config.json ./mcp-config.json
+
+# Edit as needed
+nano mcp-config.json
+
+# Run with the configuration
+npx @agentience/ts-pkg-distro
 ```
 
 ## Implementation
