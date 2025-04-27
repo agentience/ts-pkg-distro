@@ -1,7 +1,6 @@
 {
   "server": {
-    "name": "TS-PKG-Distro",
-    "version": "1.0.4"
+    "name": "ts-pkg-distro"
   },
   "transport": {
     "type": "stdio",

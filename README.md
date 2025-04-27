@@ -109,18 +109,50 @@ For local development with hot reloading:
 npm run dev
 ```
 
+### Scripts
+
+The project includes various utility scripts in the `scripts/` directory:
+
+- **Simulation Scripts**:
+  - `simulate-roo-*.js` - Scripts for simulating Roo Code integration in different modes
+  - `simulate-roo-mcp.js` - Basic MCP server simulation
+  - `simulate-roo-mcp-exact.js` - Exact MCP protocol simulation
+  - `simulate-roo-linked.js` - Linked package simulation
+  - `simulate-roo-capture.js` - Output capture simulation
+  - `simulate-roo-mcp-local.js` - Local MCP server simulation
+
+- **Verification Scripts**:
+  - `verify-app-integration.js` - Verify application integration
+  - `verify-app-logging.js` - Verify application logging
+  - `verify-fastmcp-logging.js` - Verify FastMCP logging
+  - `verify-npm-org.js` - Verify npm organization configuration
+
+- **Utility Scripts**:
+  - `run-npx.sh` - Helper script for running the package with npx
+
+These scripts are primarily used for development, testing, and verification purposes.
+
 ## MCP Server Configuration
 
-You can configure the MCP server using a JSON configuration file. By default, the server looks for a file named `mcp-config.json` in the current directory, but you can specify a different path using the `--config` flag.
+You can configure the MCP server using multiple methods, with the following priority order (highest to lowest):
 
-### Configuration Options
+1. Command-line arguments
+2. Environment variables
+3. Configuration file
+4. Default values
 
-The configuration file supports the following options:
+By default, the server uses the package.json for version information and sets the server name to lowercase 'ts-pkg-distro'.
+
+### Configuration Methods
+
+#### 1. Configuration File
+
+The server looks for a file named `mcp-config.json` in the current directory by default, but you can specify a different path using the `--config` flag.
 
 ```json
 {
   "server": {
-    "name": "Custom Server Name",
+    "name": "custom-server-name",
     "version": "1.0.0"
   },
   "transport": {
@@ -133,10 +165,46 @@ The configuration file supports the following options:
 }
 ```
 
+#### 2. Environment Variables
+
+You can use environment variables with the prefix `TS_PKG_DISTRO_` to override configuration values:
+
+- `TS_PKG_DISTRO_SERVER_NAME`: Server name
+- `TS_PKG_DISTRO_TRANSPORT_TYPE`: Transport type
+- `TS_PKG_DISTRO_TRANSPORT_PORT`: HTTP/WebSocket port
+- `TS_PKG_DISTRO_TRANSPORT_HOST`: HTTP host
+- `TS_PKG_DISTRO_NPM_ORG`: npm organization
+- `TS_PKG_DISTRO_VERBOSE`: Enable verbose logging
+
+Example:
+```bash
+TS_PKG_DISTRO_SERVER_NAME=my-server TS_PKG_DISTRO_VERBOSE=true npx @agentience/ts-pkg-distro
+```
+
+#### 3. Command-line Arguments
+
+You can use command-line arguments to override configuration values:
+
+- `--server-name`: Server name
+- `--transport-type`: Transport type
+- `--transport-port`: HTTP/WebSocket port
+- `--transport-host`: HTTP host
+- `--npm-org`: npm organization
+- `--verbose`: Enable verbose logging
+- `--config`: Path to configuration file
+
+Arguments can be specified in two formats:
+```bash
+npx @agentience/ts-pkg-distro --server-name=my-server --verbose
+# or
+npx @agentience/ts-pkg-distro --server-name my-server --verbose
+```
+
+### Configuration Options
+
 #### Server Options
 
-- `name`: Custom name for the MCP server
-- `version`: Custom version for the MCP server
+- `name`: Custom name for the MCP server (default: "ts-pkg-distro")
 
 #### Transport Options
 
@@ -164,8 +232,7 @@ The configuration file supports the following options:
 ```json
 {
   "server": {
-    "name": "TS-PKG-Distro",
-    "version": "1.0.2"
+    "name": "ts-pkg-distro"
   },
   "transport": {
     "type": "stdio"
@@ -178,8 +245,7 @@ The configuration file supports the following options:
 ```json
 {
   "server": {
-    "name": "TS-PKG-Distro",
-    "version": "1.0.2"
+    "name": "ts-pkg-distro"
   },
   "transport": {
     "type": "stdio"
@@ -193,8 +259,7 @@ The configuration file supports the following options:
 ```json
 {
   "server": {
-    "name": "TS-PKG-Distro",
-    "version": "1.0.2"
+    "name": "ts-pkg-distro"
   },
   "transport": {
     "type": "http",
@@ -211,8 +276,7 @@ The configuration file supports the following options:
 ```json
 {
   "server": {
-    "name": "TS-PKG-Distro",
-    "version": "1.0.2"
+    "name": "ts-pkg-distro"
   },
   "transport": {
     "type": "http",
@@ -237,6 +301,22 @@ To use a custom configuration file:
 
 ```bash
 npx @agentience/ts-pkg-distro --config ./my-config.json
+```
+
+### Command-line Examples
+
+```bash
+# Use a custom server name
+npx @agentience/ts-pkg-distro --server-name=my-custom-server
+
+# Use HTTP transport on port 4000
+npx @agentience/ts-pkg-distro --transport-type=http --transport-port=4000
+
+# Use a custom configuration file with verbose logging
+npx @agentience/ts-pkg-distro --config=./my-config.json --verbose
+
+# Use npm organization with environment variables
+TS_PKG_DISTRO_NPM_ORG=myorg npx @agentience/ts-pkg-distro
 ```
 
 ### Example Configuration Files
@@ -326,6 +406,13 @@ This server is built using [FastMCP](https://github.com/punkpeye/fastmcp), a Typ
 ```
 ts-pkg-distro-mcp/
 ├── dist/                # Compiled JavaScript (generated)
+├── examples/            # Example configuration files
+│   ├── http-config.json
+│   └── mcp-config.json
+├── scripts/             # Utility and testing scripts
+│   ├── run-npx.sh
+│   ├── simulate-roo-*.js
+│   └── verify-*.js
 ├── src/
 │   ├── index.ts         # Main server entry point
 │   ├── resources.ts     # Resource handler implementation
