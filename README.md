@@ -176,6 +176,62 @@ nano mcp-config.json
 npx @agentience/ts-pkg-distro
 ```
 
+## Integration with Roo Code
+
+To use this MCP server with Roo Code or other MCP clients, you need to configure it in the client's MCP server configuration file. For Roo Code, this is typically located at `.roo/mcp.json`.
+
+### Roo Code Configuration
+
+Add the following to your `.roo/mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "ts-pkg-distro": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@agentience/ts-pkg-distro"
+      ]
+    }
+  }
+}
+```
+
+### With Custom Configuration
+
+To use a custom configuration file with Roo Code:
+
+```json
+{
+  "mcpServers": {
+    "ts-pkg-distro": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@agentience/ts-pkg-distro",
+        "--config",
+        "./path/to/your/config.json"
+      ]
+    }
+  }
+}
+```
+
+### Accessing Resources
+
+Once configured, you can access the resources in your Roo Code prompts:
+
+```
+Follow the instructions found at ts-pkg-distro://orchestrator
+```
+
+Or use the tools directly:
+
+```
+Use the ts-pkg-distro server to get the publishing-to-npm guide
+```
+
 ## Implementation
 
 This server is built using [FastMCP](https://github.com/punkpeye/fastmcp), a TypeScript framework for building MCP servers. The server provides both URI-based resource access and tool-based resource access.
