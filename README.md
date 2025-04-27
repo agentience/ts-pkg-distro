@@ -48,6 +48,41 @@ To use this server with Roo Code's Boomerang Mode, use the following prompt:
 Follow the instructions found at ts-pkg-distro://orchestrator
 ```
 
+### What Happens After Submitting the Prompt
+
+When you submit the above prompt in Roo Code's Boomerang Mode, the following workflow is initiated:
+
+1. **Orchestrator Activation**: Boomerang Mode connects to the ts-pkg-distro MCP server and accesses the orchestrator guide, which provides an overview of the entire TypeScript package distribution process.
+
+2. **Step-by-Step Guidance**: The orchestrator breaks down the process into 8 sequential steps:
+   - **Project Assessment**: Evaluates your current project setup to determine which steps are needed
+   - **Initial Setup**: Creates the basic project structure if needed
+   - **TypeScript Configuration**: Configures TypeScript specifically for package distribution
+   - **Package Configuration**: Sets up package.json for npm distribution
+   - **Executable Setup** (optional): Makes your package executable with npx if desired
+   - **Build and Test**: Builds your package and tests it locally
+   - **Publishing Preparation**: Prepares your package for publishing
+   - **Publishing to npm**: Publishes your package to the npm registry
+
+3. **Interactive Workflow**: For each step, Boomerang Mode will:
+   - Explain the purpose of the step
+   - Determine if the step is necessary for your project
+   - Provide detailed instructions for completing the step
+   - Execute necessary commands with your permission
+   - Verify the results before proceeding to the next step
+
+4. **Adaptive Assistance**: The workflow adapts based on your project's current state:
+   - If you have an existing project, it will assess what's already set up
+   - If you're starting from scratch, it will guide you through the complete setup
+   - It will skip steps that aren't relevant to your specific package
+
+5. **Completion and Follow-up**: After completing all necessary steps:
+   - Your TypeScript package will be properly configured and published to npm
+   - You'll receive guidance on maintaining and updating your package
+   - You can optionally set up CI/CD for automated publishing
+
+This guided approach ensures that your TypeScript package follows best practices for npm distribution, with proper configuration for TypeScript declaration files, package exports, and command-line functionality if needed.
+
 ## Development
 
 To start the server:
