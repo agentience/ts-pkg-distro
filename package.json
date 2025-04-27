@@ -5,14 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "ts-pkg-distro": "./dist/cli.js"
+    "ts-pkg-distro": "./dist/app.js"
   },
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "prepare": "npm run build && chmod +x dist/cli.js",
+    "prepare": "npm run build && chmod +x dist/app.js",
     "prepublishOnly": "npm run build && echo \"Package is ready for publishing\""
   },
   "files": [
