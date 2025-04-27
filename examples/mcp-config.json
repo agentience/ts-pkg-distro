@@ -6,5 +6,6 @@
   "transport": {
     "type": "stdio",
     "options": {}
-  }
+  },
+  "npm-org": "agentience"
 }

@@ -15,6 +15,30 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
       - run: npm ci
       - run: npm test
-      - run: npm publish --access public
+      
+      # Determine if we need to use an npm organization
+      - name: Check for npm organization config
+        id: npm-org-check
+        run: |
+          if [ -f mcp-config.json ]; then
+            NPM_ORG=$(node -e "try { const config = require('./mcp-config.json'); console.log(config['npm-org'] || ''); } catch(e) { console.log(''); }")
+            echo "NPM_ORG=$NPM_ORG" >> $GITHUB_ENV
+            echo "Found npm-org in config: $NPM_ORG"
+          fi
+      
+      # Publish with or without organization namespace
+      - name: Publish package
+        run: |
+          if [ -n "$NPM_ORG" ]; then
+            # Update package.json name to include organization
+            node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.name = '@${{ env.NPM_ORG }}/' + pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
+            echo "Publishing with organization namespace: @${{ env.NPM_ORG }}"
+            npm publish --access public
+          else
+            # Update package.json name to remove organization if present
+            node -e "const fs = require('fs'); const pkg = require('./package.json'); if (pkg.name.startsWith('@')) { pkg.name = pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2)); }"
+            echo "Publishing without organization namespace"
+            npm publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

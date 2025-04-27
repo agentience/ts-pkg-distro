@@ -21,6 +21,7 @@ The server provides the following resources:
 - `ts-pkg-distro://build-and-test` - Build and test your TypeScript package
 - `ts-pkg-distro://publishing-preparation` - Prepare your package for publishing
 - `ts-pkg-distro://publishing-to-npm` - Publish your package to npm registry
+- `ts-pkg-distro://npm-organizations-guide` - Comprehensive guide to npm organizations (scopes)
 - `ts-pkg-distro://index` - Index of all available resources
 
 ## Tools
@@ -37,6 +38,7 @@ The server provides tools to access the guides programmatically:
 - `get_build_and_test_guide` - Get the build and test guide
 - `get_publishing_preparation_guide` - Get the publishing preparation guide
 - `get_publishing_to_npm_guide` - Get the publishing to npm guide
+- `get_npm_organizations_guide` - Get the npm organizations guide
 - `list_guides` - Get a list of all available guides
 - `get_next_guide` - Get the next guide in sequence after the current one
 
@@ -126,7 +128,8 @@ The configuration file supports the following options:
     "options": {
       // Transport-specific options
     }
-  }
+  },
+  "npm-org": "agentience"
 }
 ```
 
@@ -143,6 +146,17 @@ The configuration file supports the following options:
   - For HTTP: `{ "port": 3000, "host": "localhost" }`
   - For WebSocket: `{ "port": 3000 }`
 
+#### npm Organization Options
+
+- `npm-org`: Optional organization namespace for npm publishing
+  - When specified, automatically:
+    - Updates the package name in package.json to include your organization scope (e.g., `@agentience/package-name`)
+    - Adds the `--access public` flag when publishing
+  - Useful for:
+    - Maintaining consistent package naming across environments
+    - Simplifying CI/CD pipelines
+    - Managing organization scopes for projects with multiple packages
+
 ### Example Configurations
 
 #### Basic Configuration (stdio)
@@ -156,6 +170,21 @@ The configuration file supports the following options:
   "transport": {
     "type": "stdio"
   }
+}
+```
+
+#### Basic Configuration with npm Organization
+
+```json
+{
+  "server": {
+    "name": "TS-PKG-Distro",
+    "version": "1.0.2"
+  },
+  "transport": {
+    "type": "stdio"
+  },
+  "npm-org": "agentience"
 }
 ```
 
@@ -174,6 +203,25 @@ The configuration file supports the following options:
       "host": "localhost"
     }
   }
+}
+```
+
+#### HTTP Server with npm Organization
+
+```json
+{
+  "server": {
+    "name": "TS-PKG-Distro",
+    "version": "1.0.2"
+  },
+  "transport": {
+    "type": "http",
+    "options": {
+      "port": 3000,
+      "host": "localhost"
+    }
+  },
+  "npm-org": "agentience"
 }
 ```
 
@@ -197,6 +245,8 @@ The package includes example configuration files in the `examples` directory:
 
 - `examples/mcp-config.json` - Basic stdio configuration
 - `examples/http-config.json` - HTTP server configuration
+
+You can modify these example configurations to include the `npm-org` option for publishing packages under your organization scope.
 
 You can use these as templates for your own configuration:
 
@@ -288,7 +338,8 @@ ts-pkg-distro-mcp/
 │       ├── 05-Executable-Setup.md
 │       ├── 06-Build-and-Test.md
 │       ├── 07-Publishing-Preparation.md
-│       └── 08-Publishing-to-npm.md
+│       ├── 08-Publishing-to-npm.md
+│       └── 09-npm-Organizations-Guide.md
 ├── package.json
 └── tsconfig.json
 ```

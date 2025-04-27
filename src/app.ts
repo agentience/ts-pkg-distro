@@ -5,20 +5,39 @@ import * as path from 'path';
 import { server, startServer } from './index';
 
 /**
+ * Configuration interface
+ */
+interface PackageConfig {
+  server?: {
+    name?: string;
+    version?: string;
+  };
+  transport?: {
+    type?: string;
+    options?: any;
+  };
+  'npm-org'?: string; // Optional organization namespace for npm publishing
+}
+
+/**
  * Load configuration from a JSON file if it exists
  */
-function loadConfig(configPath?: string): any {
+function loadConfig(configPath?: string): PackageConfig {
   // Default config path is mcp-config.json in the current directory
   const filePath = configPath || path.join(process.cwd(), 'mcp-config.json');
   
   if (fs.existsSync(filePath)) {
     try {
       const configData = fs.readFileSync(filePath, 'utf8');
-      const config = JSON.parse(configData);
+      const config = JSON.parse(configData) as PackageConfig;
       console.log(`Loaded configuration from ${filePath}`);
       
       if (config.server) {
         console.log(`Using server configuration: ${JSON.stringify(config.server)}`);
+      }
+      
+      if (config['npm-org']) {
+        console.log(`Using npm organization: ${config['npm-org']}`);
       }
       
       return config;

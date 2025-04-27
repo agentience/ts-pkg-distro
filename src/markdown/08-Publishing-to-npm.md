@@ -262,6 +262,32 @@ When you want to update your package in the future:
 3. Update the version: `npm version patch|minor|major`
 4. Publish the updated package: `npm publish`
 
+## Using the npm-org Configuration Option
+
+The package supports an `npm-org` configuration option that determines whether your package is published with an organization namespace or not. This simplifies the publishing process, especially when using CI/CD.
+
+### How It Works
+
+1. Add the `npm-org` option to your `mcp-config.json` file:
+   ```json
+   {
+     "server": {
+       "name": "Your-Package-Name",
+       "version": "1.0.0"
+     },
+     "npm-org": "your-org-name"
+   }
+   ```
+
+2. When publishing:
+   - If `npm-org` is specified, the package will be published with the organization namespace (e.g., `@your-org-name/package-name`) and the `--access public` flag will be automatically applied
+   - If `npm-org` is not specified, the package will be published without an organization namespace
+
+3. Benefits:
+   - Consistent package naming across development and CI/CD environments
+   - Automatic handling of the `--access public` flag for scoped packages
+   - Simplified configuration management for projects with multiple packages
+
 ## CI/CD Integration
 
 The script can set up CI/CD using GitHub Actions for automated publishing. This requires:
@@ -270,6 +296,35 @@ The script can set up CI/CD using GitHub Actions for automated publishing. This 
 2. An npm token: `npm token create`
 3. Adding the token as a secret in your GitHub repository settings with the name `NPM_TOKEN`
 4. Creating a new release in GitHub to trigger the workflow
+
+The CI/CD workflow automatically detects the `npm-org` configuration and adjusts the package name and publishing command accordingly:
+
+```yaml
+# Determine if we need to use an npm organization
+- name: Check for npm organization config
+  id: npm-org-check
+  run: |
+    if [ -f mcp-config.json ]; then
+      NPM_ORG=$(node -e "try { const config = require('./mcp-config.json'); console.log(config['npm-org'] || ''); } catch(e) { console.log(''); }")
+      echo "NPM_ORG=$NPM_ORG" >> $GITHUB_ENV
+      echo "Found npm-org in config: $NPM_ORG"
+    fi
+
+# Publish with or without organization namespace
+- name: Publish package
+  run: |
+    if [ -n "$NPM_ORG" ]; then
+      # Update package.json name to include organization
+      node -e "const fs = require('fs'); const pkg = require('./package.json'); pkg.name = '@${{ env.NPM_ORG }}/' + pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
+      echo "Publishing with organization namespace: @${{ env.NPM_ORG }}"
+      npm publish --access public
+    else
+      # Update package.json name to remove organization if present
+      node -e "const fs = require('fs'); const pkg = require('./package.json'); if (pkg.name.startsWith('@')) { pkg.name = pkg.name.replace(/^@.*\//, ''); fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2)); }"
+      echo "Publishing without organization namespace"
+      npm publish
+    fi
+```
 
 ## Conclusion
 
