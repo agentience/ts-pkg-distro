@@ -1,5 +1,5 @@
 {
-  "name": "ts-pkg-distro",
+  "name": "@agentience/ts-pkg-distro",
   "version": "1.0.0",
   "description": "MCP server for TypeScript package distribution resources",
   "main": "dist/index.js",
@@ -13,7 +13,8 @@
     "prepublishOnly": "npm run build && echo \"Package is ready for publishing\""
   },
   "files": [
-    "dist"
+    "dist",
+    "src/markdown"
   ],
   "keywords": [
     "typescript",
