@@ -1,3 +1,40 @@
+# Release Notes for v1.1.4
+
+## Overview
+
+This release includes a documentation-only change, focusing on reorganizing the README.md file for improved clarity and usability.
+
+## Key Improvements
+
+### Documentation Reorganization
+- Restructured README.md for better readability
+- Improved organization of sections and content
+- Enhanced clarity of installation and usage instructions
+
+## Technical Details
+
+### Changes
+- Documentation-only changes (no code modifications)
+- README.md reorganization for better user experience
+
+## Upgrade Instructions
+
+To upgrade to v1.1.4, run:
+
+```bash
+npm install @agentience/ts-pkg-distro@1.1.4
+```
+
+Or update your package.json dependency:
+
+```json
+"dependencies": {
+  "@agentience/ts-pkg-distro": "^1.1.4"
+}
+```
+
+Then run `npm install`.
+
 # Release Notes for v1.1.3
 
 ## Overview
