@@ -1,7 +1,7 @@
 # Mode Capabilities Configuration
 
 title: "Mode Capabilities"
-description: "Specialized capabilities, strengths, and ideal use cases for each mode in the IFTI project"
+description: "Specialized capabilities, strengths, and ideal use cases for each mode in the project"
 
 modes:
   - name: "Code Mode"

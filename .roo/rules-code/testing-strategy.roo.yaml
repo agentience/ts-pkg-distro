@@ -1,10 +1,10 @@
-# IFTI Testing Strategy Configuration
+# Testing Strategy Configuration
 
-title: "IFTI Testing Strategy"
-description: "Testing approaches, coverage goals, tools, and validation criteria for the IFTI project"
+title: "Testing Strategy"
+description: "Testing approaches, coverage goals, tools, and validation criteria for the project"
 
 testing_approaches:
-  description: "Different testing approaches to be used throughout the IFTI project lifecycle"
+  description: "Different testing approaches to be used throughout the project lifecycle"
   
   unit_testing:
     scope: "Individual functions, components, and modules"

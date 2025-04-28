@@ -1,7 +1,7 @@
 # Workflow Orchestration Configuration
 
 title: "Workflow Orchestration"
-description: "Patterns and practices for orchestrating workflows across different modes in the IFTI project"
+description: "Patterns and practices for orchestrating workflows across different modes in the project"
 
 task_breakdown_patterns:
   feature_implementation_workflow:

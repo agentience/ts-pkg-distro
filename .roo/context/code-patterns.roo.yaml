@@ -1,10 +1,10 @@
-# IFTI Code Patterns Configuration
+# Code Patterns Configuration
 
-title: "IFTI Code Patterns"
-description: "Coding standards, reusable patterns, implementation examples, and architecture-code links for the IFTI project"
+title: "Code Patterns"
+description: "Coding standards, reusable patterns, implementation examples, and architecture-code links for the project"
 
 coding_standards:
-  description: "Coding standards and best practices to be followed across the IFTI codebase"
+  description: "Coding standards and best practices to be followed across the codebase"
   standards:
     - "TypeScript coding standards"
     - "React component structure"
@@ -14,7 +14,7 @@ coding_standards:
     - "Documentation requirements"
 
 reusable_patterns:
-  description: "Reusable code patterns that should be leveraged throughout the IFTI application"
+  description: "Reusable code patterns that should be leveraged throughout the application"
   patterns:
     - "Authentication and authorization patterns"
     - "Data fetching and state management"
@@ -24,7 +24,7 @@ reusable_patterns:
     - "Custom hooks for common functionality"
 
 implementation_examples:
-  description: "Concrete examples of implementing the defined patterns in the IFTI codebase"
+  description: "Concrete examples of implementing the defined patterns in the codebase"
   examples:
     - "Authentication flow implementation"
     - "Data model integration with UI components"

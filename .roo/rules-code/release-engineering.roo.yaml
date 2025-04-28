@@ -1,7 +1,7 @@
-# IFTI Release Engineering Configuration
+# Release Engineering Configuration
 
-title: "IFTI Release Engineering Practices"
-description: "Release engineering practices for the IFTI project, focusing on AWS Amplify deployment practices aligned with the serverless architecture"
+title: "Release Engineering Practices"
+description: "Release engineering practices for the project, focusing on AWS Amplify deployment practices aligned with the serverless architecture"
 
 versioning_strategy:
   semantic_versioning:

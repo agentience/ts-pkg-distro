@@ -1,4 +1,4 @@
-# IFTI Knowledge Transfer Configuration
+# Knowledge Transfer Configuration
 
 title: "Knowledge Transfer"
 description: "Documentation strategy, training materials, onboarding process, and knowledge sharing approaches."
@@ -89,7 +89,7 @@ training_materials:
       description: "Searchable repository of information"
 
 onboarding_process:
-  description: "Process for onboarding new team members to the IFTI project"
+  description: "Process for onboarding new team members to the project"
   
   developer_onboarding:
     phases:
@@ -145,7 +145,7 @@ onboarding_process:
           - "User community engagement"
 
 knowledge_sharing:
-  description: "Approaches for ongoing knowledge sharing within the IFTI project team"
+  description: "Approaches for ongoing knowledge sharing within the project team"
   
   knowledge_sharing_practices:
     code_reviews:
