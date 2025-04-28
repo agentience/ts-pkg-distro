@@ -1,6 +1,8 @@
 # Jira Ticket Management
 
-This document outlines the practices and procedures for managing Jira tickets throughout the development lifecycle.
+This document outlines the practices and procedures for managing Jira tickets throughout the development lifecycle.  
+
+The Jira Project Key for this project is 'TPDM'. Jira issue numbers are always assigned by Jira once the issue is created.
 
 ## Jira Ticket Creation Workflow
 
