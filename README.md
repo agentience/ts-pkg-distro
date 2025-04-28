@@ -6,41 +6,7 @@ A FastMCP server providing resources for TypeScript package distribution.
 
 ## Overview
 
-This MCP server provides access to markdown documents that guide you through the process of setting up and publishing a TypeScript package to npm. Each step of the process is available as a separate resource, with an orchestrator that provides an overview of the entire process.
-
-## Resources
-
-The server provides the following resources:
-
-- `ts-pkg-distro://orchestrator` - Main guide with overview of the entire process
-- `ts-pkg-distro://project-assessment` - Assess your current project structure
-- `ts-pkg-distro://initial-setup` - Initial setup for a TypeScript package
-- `ts-pkg-distro://typescript-configuration` - Configure TypeScript for package distribution
-- `ts-pkg-distro://package-configuration` - Package.json configuration for distribution
-- `ts-pkg-distro://executable-setup` - Make your package executable with npx
-- `ts-pkg-distro://build-and-test` - Build and test your TypeScript package
-- `ts-pkg-distro://publishing-preparation` - Prepare your package for publishing
-- `ts-pkg-distro://publishing-to-npm` - Publish your package to npm registry
-- `ts-pkg-distro://npm-organizations-guide` - Comprehensive guide to npm organizations (scopes)
-- `ts-pkg-distro://index` - Index of all available resources
-
-## Tools
-
-The server provides tools to access the guides programmatically:
-
-- `get_guide` - Get a specific guide by name
-- `get_orchestrator_guide` - Get the main orchestrator guide
-- `get_project_assessment_guide` - Get the project assessment guide
-- `get_initial_setup_guide` - Get the initial setup guide
-- `get_typescript_configuration_guide` - Get the TypeScript configuration guide
-- `get_package_configuration_guide` - Get the package configuration guide
-- `get_executable_setup_guide` - Get the executable setup guide
-- `get_build_and_test_guide` - Get the build and test guide
-- `get_publishing_preparation_guide` - Get the publishing preparation guide
-- `get_publishing_to_npm_guide` - Get the publishing to npm guide
-- `get_npm_organizations_guide` - Get the npm organizations guide
-- `list_guides` - Get a list of all available guides
-- `get_next_guide` - Get the next guide in sequence after the current one
+This MCP server provides access to markdown documents that guide you, or preferrably a coding agent, through the process of setting up and publishing a TypeScript package to npm. Each step of the process is available as a separate resource, with an orchestrator that provides an overview of the entire process.  The package has been initially designed with [Roo Code's Boomerang mode](https://docs.roocode.com/features/boomerang-tasks?_highlight=boomerang) in mind. It may work well using other coding tools (Windsurf, Cursor, Cline), but they haven't been tested.
 
 ## Usage with Roo Code's Boomerang Mode
 
@@ -85,52 +51,39 @@ When you submit the above prompt in Roo Code's Boomerang Mode, the following wor
 
 This guided approach ensures that your TypeScript package follows best practices for npm distribution, with proper configuration for TypeScript declaration files, package exports, and command-line functionality if needed.
 
-## Development
+## MCP Resources
 
-To start the server:
+The server provides the following resources:
 
-1. Install dependencies:
-   ```
-   npm install
-   ```
+- `ts-pkg-distro://orchestrator` - Main guide with overview of the entire process
+- `ts-pkg-distro://project-assessment` - Assess your current project structure
+- `ts-pkg-distro://initial-setup` - Initial setup for a TypeScript package
+- `ts-pkg-distro://typescript-configuration` - Configure TypeScript for package distribution
+- `ts-pkg-distro://package-configuration` - Package.json configuration for distribution
+- `ts-pkg-distro://executable-setup` - Make your package executable with npx
+- `ts-pkg-distro://build-and-test` - Build and test your TypeScript package
+- `ts-pkg-distro://publishing-preparation` - Prepare your package for publishing
+- `ts-pkg-distro://publishing-to-npm` - Publish your package to npm registry
+- `ts-pkg-distro://npm-organizations-guide` - Comprehensive guide to npm organizations (scopes)
+- `ts-pkg-distro://index` - Index of all available resources
 
-2. Build the server:
-   ```
-   npm run build
-   ```
+## MCP Tools
 
-3. Start the server:
-   ```
-   npm start
-   ```
+The server provides tools to access the guides programmatically:
 
-For local development with hot reloading:
-```
-npm run dev
-```
-
-### Scripts
-
-The project includes various utility scripts in the `scripts/` directory:
-
-- **Simulation Scripts**:
-  - `simulate-roo-*.js` - Scripts for simulating Roo Code integration in different modes
-  - `simulate-roo-mcp.js` - Basic MCP server simulation
-  - `simulate-roo-mcp-exact.js` - Exact MCP protocol simulation
-  - `simulate-roo-linked.js` - Linked package simulation
-  - `simulate-roo-capture.js` - Output capture simulation
-  - `simulate-roo-mcp-local.js` - Local MCP server simulation
-
-- **Verification Scripts**:
-  - `verify-app-integration.js` - Verify application integration
-  - `verify-app-logging.js` - Verify application logging
-  - `verify-fastmcp-logging.js` - Verify FastMCP logging
-  - `verify-npm-org.js` - Verify npm organization configuration
-
-- **Utility Scripts**:
-  - `run-npx.sh` - Helper script for running the package with npx
-
-These scripts are primarily used for development, testing, and verification purposes.
+- `get_guide` - Get a specific guide by name
+- `get_orchestrator_guide` - Get the main orchestrator guide
+- `get_project_assessment_guide` - Get the project assessment guide
+- `get_initial_setup_guide` - Get the initial setup guide
+- `get_typescript_configuration_guide` - Get the TypeScript configuration guide
+- `get_package_configuration_guide` - Get the package configuration guide
+- `get_executable_setup_guide` - Get the executable setup guide
+- `get_build_and_test_guide` - Get the build and test guide
+- `get_publishing_preparation_guide` - Get the publishing preparation guide
+- `get_publishing_to_npm_guide` - Get the publishing to npm guide
+- `get_npm_organizations_guide` - Get the npm organizations guide
+- `list_guides` - Get a list of all available guides
+- `get_next_guide` - Get the next guide in sequence after the current one
 
 ## MCP Server Configuration
 
@@ -396,6 +349,53 @@ Or use the tools directly:
 ```
 Use the ts-pkg-distro server to get the publishing-to-npm guide
 ```
+
+## Development
+
+To start the server:
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+
+2. Build the server:
+   ```
+   npm run build
+   ```
+
+3. Start the server:
+   ```
+   npm start
+   ```
+
+For local development with hot reloading:
+```
+npm run dev
+```
+
+### Scripts
+
+The project includes various utility scripts in the `scripts/` directory:
+
+- **Simulation Scripts**:
+  - `simulate-roo-*.js` - Scripts for simulating Roo Code integration in different modes
+  - `simulate-roo-mcp.js` - Basic MCP server simulation
+  - `simulate-roo-mcp-exact.js` - Exact MCP protocol simulation
+  - `simulate-roo-linked.js` - Linked package simulation
+  - `simulate-roo-capture.js` - Output capture simulation
+  - `simulate-roo-mcp-local.js` - Local MCP server simulation
+
+- **Verification Scripts**:
+  - `verify-app-integration.js` - Verify application integration
+  - `verify-app-logging.js` - Verify application logging
+  - `verify-fastmcp-logging.js` - Verify FastMCP logging
+  - `verify-npm-org.js` - Verify npm organization configuration
+
+- **Utility Scripts**:
+  - `run-npx.sh` - Helper script for running the package with npx
+
+These scripts are primarily used for development, testing, and verification purposes.
 
 ## Implementation
 
