@@ -1,6 +1,6 @@
-# IFTI Knowledge Transfer
+# Knowledge Transfer
 
-This document outlines the documentation strategy, training materials, onboarding process, and knowledge sharing approaches for the IFTI project.
+This document outlines the documentation strategy, training materials, onboarding process, and knowledge sharing approaches.
 
 ## Documentation Strategy
 
