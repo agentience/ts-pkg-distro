@@ -122,3 +122,50 @@ modes:
       - "Projects requiring coordination between different modes"
       - "Tasks that need strategic planning and delegation"
       - "Progress tracking across multiple workstreams"
+
+  - name: "Frontend Code Mode"
+    specializations:
+      - "Building React and TypeScript user interfaces"
+      - "Implementing Cloudscape components and patterns"
+      - "Creating responsive and accessible web applications"
+      - "Frontend testing and quality assurance"
+      - "Frontend performance optimization"
+    
+    strengths:
+      - "Deep expertise in React and TypeScript development"
+      - "Knowledge of AWS Cloudscape Design System"
+      - "Understanding of frontend testing strategies"
+      - "Ability to create accessible and performant UIs"
+      - "Experience with modern frontend tooling and practices"
+    
+    ideal_use_cases:
+      - "Implementing UI components and pages"
+      - "Building complex forms with validation"
+      - "Creating data visualization interfaces"
+      - "Implementing responsive layouts"
+      - "Setting up frontend testing infrastructure"
+      - "Optimizing frontend performance"
+      - "Implementing accessibility features"
+
+  - name: "DB Migration Mode"
+    specializations:
+      - "Database migration planning and execution"
+      - "Data modeling for NoSQL databases"
+      - "AWS Database Migration Service (DMS) configuration"
+      - "Data validation and integrity verification"
+      - "Migration monitoring and troubleshooting"
+    
+    strengths:
+      - "Deep understanding of relational and NoSQL database concepts"
+      - "Expertise in AWS database migration tools and services"
+      - "Knowledge of data modeling best practices for DynamoDB"
+      - "Experience with migration strategies to minimize downtime"
+      - "Ability to design efficient NoSQL access patterns"
+    
+    ideal_use_cases:
+      - "Migrating from MySQL to DynamoDB"
+      - "Planning and executing database migrations"
+      - "Designing DynamoDB table structures"
+      - "Setting up AWS DMS replication tasks"
+      - "Validating data integrity during migrations"
+      - "Optimizing database performance post-migration"

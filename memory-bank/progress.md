@@ -9,6 +9,7 @@ This file tracks the project's progress using a task list format.
 
 ## Completed Tasks
 
+* Updated publishing guide to emphasize GitHub workflows for package publishing
 * Committed changes to include markdown files in package distribution
 * Bumped version to 1.2.0 following semantic versioning
 * Updated RELEASE_NOTES.md with details of the new release
