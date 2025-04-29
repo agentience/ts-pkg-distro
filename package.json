@@ -1,6 +1,6 @@
 {
   "name": "@agentience/ts-pkg-distro",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "MCP server for TypeScript package distribution resources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

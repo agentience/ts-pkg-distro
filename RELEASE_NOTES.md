@@ -1,3 +1,41 @@
+# Release Notes for v1.2.0
+
+## Overview
+
+This release includes an enhancement to the package distribution process, ensuring that markdown files from the `src/markdown/` directory are included in the package distribution. This was necessary for the server to correctly provide its resources.
+
+## Key Improvements
+
+### Package Distribution Enhancement
+- Added a new script to copy markdown files to the distribution directory
+- Modified the build process to include markdown files in the package
+- Ensured server resources are correctly available in the published package
+
+## Technical Details
+
+### Changes
+- Added a new `copy-markdown` script to package.json
+- Updated the build script to include the markdown copying step
+- Verified that markdown files are present in the dist directory after build
+
+## Upgrade Instructions
+
+To upgrade to v1.2.0, run:
+
+```bash
+npm install @agentience/ts-pkg-distro@1.2.0
+```
+
+Or update your package.json dependency:
+
+```json
+"dependencies": {
+  "@agentience/ts-pkg-distro": "^1.2.0"
+}
+```
+
+Then run `npm install`.
+
 # Release Notes for v1.1.4
 
 ## Overview
