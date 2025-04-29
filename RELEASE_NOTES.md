@@ -1,3 +1,33 @@
+# Release Notes for v1.2.1
+
+## Overview
+
+This is a patch release that fixes an issue with the publishing process. It contains the same features and improvements as v1.2.0.
+
+## Key Improvements
+
+### Publishing Process Fix
+- Fixed an issue with the automated publishing process
+- Bumped version to 1.2.1 to allow for proper npm publishing
+
+## Upgrade Instructions
+
+To upgrade to v1.2.1, run:
+
+```bash
+npm install @agentience/ts-pkg-distro@1.2.1
+```
+
+Or update your package.json dependency:
+
+```json
+"dependencies": {
+  "@agentience/ts-pkg-distro": "^1.2.1"
+}
+```
+
+Then run `npm install`.
+
 # Release Notes for v1.2.0
 
 ## Overview
