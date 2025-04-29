@@ -3,17 +3,22 @@
 This file tracks the project's current status, including recent changes, current goals, and open questions.
 2025-04-28 11:22:30 - Log of updates made.
 2025-04-28 11:39:45 - Added YAML conversion verification task.
+2025-04-29 10:45:15 - Updated with package distribution enhancement and version 1.2.0 release.
 
 *
 
 ## Current Focus
 
-* Verifying YAML file structure matches original markdown content
-* Ensuring backward compatibility with existing systems
-* Updating documentation references to support dual formats
+* Preparing for release of version 1.2.0
+* Ensuring markdown files are correctly included in package distribution
+* Verifying build process works with the new changes
 
 ## Recent Changes
 
+* Enhanced package distribution to include markdown files
+* Bumped version to 1.2.0 following semantic versioning
+* Updated release notes with details of the new release
+* Created git tag for version 1.2.0
 * Successfully converted Jira management rules to YAML format
 * Maintained original markdown file for reference
 * Updated Memory Bank with conversion details

@@ -9,6 +9,10 @@ This file tracks the project's progress using a task list format.
 
 ## Completed Tasks
 
+* Committed changes to include markdown files in package distribution
+* Bumped version to 1.2.0 following semantic versioning
+* Updated RELEASE_NOTES.md with details of the new release
+* Created git tag for version 1.2.0
 * Successfully converted Jira management markdown file to YAML format
 * Initialized Memory Bank for project context tracking
 * Created detailed conversion plan and implementation

@@ -26,4 +26,4 @@ This file provides a high-level overview of the project and the expected product
 * Uses a modular approach with separate markdown files for each step of the process
 * Implements a flexible configuration system with priority order (command-line args > environment vars > config file > defaults)
 * Includes utility scripts for development, testing, and verification
-* Current version: 1.1.4 (documentation-only changes in the latest release)
+* Current version: 1.2.0 (enhanced package distribution to include markdown files)
