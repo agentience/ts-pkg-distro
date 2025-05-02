@@ -1,3 +1,34 @@
+# Release Notes for v1.2.2
+
+## Overview
+
+This is a documentation update that corrects references to the package's entry point file. The documentation now correctly refers to 'app.ts' instead of 'cli.ts' as the entry point.
+
+## Key Improvements
+
+### Documentation Corrections
+- Updated references from 'cli.ts' to 'app.ts' in documentation files
+- Ensured documentation accurately reflects the actual codebase structure
+- Affected files: 00-Orchestrator.md, 05-Executable-Setup.md, 06-Build-and-Test.md
+
+## Upgrade Instructions
+
+To upgrade to v1.2.2, run:
+
+```bash
+npm install @agentience/ts-pkg-distro@1.2.2
+```
+
+Or update your package.json dependency:
+
+```json
+"dependencies": {
+  "@agentience/ts-pkg-distro": "^1.2.2"
+}
+```
+
+Then run `npm install`.
+
 # Release Notes for v1.2.1
 
 ## Overview
