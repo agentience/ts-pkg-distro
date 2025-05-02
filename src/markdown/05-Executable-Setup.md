@@ -56,12 +56,12 @@ if [ -z "$OUT_DIR" ]; then
 fi
 
 # Check if a CLI file already exists
-if [ -f src/cli.ts ]; then
-  echo "✅ CLI entry point src/cli.ts already exists"
+if [ -f src/app.ts ]; then
+  echo "✅ CLI entry point src/app.ts already exists"
   read -p "Do you want to replace the existing CLI file? (y/N) " replace_cli
   if [[ $replace_cli == [Yy]* ]]; then
     # Create the CLI file
-    cat > src/cli.ts << EOL
+    cat > src/app.ts << EOL
 #!/usr/bin/env node
 
 import { greet } from './index';
@@ -80,12 +80,12 @@ if (require.main === module) {
   main();
 }
 EOL
-    echo "✅ Updated CLI entry point at src/cli.ts"
+    echo "✅ Updated CLI entry point at src/app.ts"
   fi
 else
   # Create the CLI file
-  echo "Creating CLI entry point at src/cli.ts..."
-  cat > src/cli.ts << EOL
+  echo "Creating CLI entry point at src/app.ts..."
+  cat > src/app.ts << EOL
 #!/usr/bin/env node
 
 import { greet } from './index';
@@ -104,7 +104,7 @@ if (require.main === module) {
   main();
 }
 EOL
-  echo "✅ Created CLI entry point at src/cli.ts"
+  echo "✅ Created CLI entry point at src/app.ts"
 fi
 
 # Check if tsconfig.json includes all src files
@@ -131,10 +131,10 @@ echo "Updating package.json with bin field..."
 # Check if bin field exists
 if grep -q "\"bin\":" package.json; then
   # Update existing bin field
-  sed -i -E "s/\"bin\": \{[^}]*\}/\"bin\": {\n    \"$COMMAND_NAME\": \".\/dist\/cli.js\"\n  }/g" package.json
+  sed -i -E "s/\"bin\": \{[^}]*\}/\"bin\": {\n    \"$COMMAND_NAME\": \".\/dist\/app.js\"\n  }/g" package.json
 else
   # Add new bin field after main
-  sed -i "/\"main\":/a \  \"bin\": {\n    \"$COMMAND_NAME\": \".\/dist\/cli.js\"\n  }," package.json
+  sed -i "/\"main\":/a \  \"bin\": {\n    \"$COMMAND_NAME\": \".\/dist\/app.js\"\n  }," package.json
 fi
 
 # Update prepare script to make the CLI file executable
@@ -142,11 +142,11 @@ if grep -q "\"prepare\":" package.json; then
   # Check if chmod command is already in prepare script
   if ! grep -q "chmod +x" package.json; then
     # Replace prepare script
-    sed -i "s/\"prepare\": \"[^\"]*\"/\"prepare\": \"npm run build \&\& chmod +x .\/dist\/cli.js\"/g" package.json
+    sed -i "s/\"prepare\": \"[^\"]*\"/\"prepare\": \"npm run build \&\& chmod +x .\/dist\/app.js\"/g" package.json
   fi
 else
   # Add prepare script
-  sed -i "/\"scripts\":/a \    \"prepare\": \"npm run build \&\& chmod +x .\/dist\/cli.js\"," package.json
+  sed -i "/\"scripts\":/a \    \"prepare\": \"npm run build \&\& chmod +x .\/dist\/app.js\"," package.json
 fi
 
 echo "✅ Updated package.json with bin field and prepare script"
@@ -167,7 +167,7 @@ echo "Next step: Build and Test"
 
 ## What This Script Does
 
-1. **Creates a CLI Entry Point**: Creates a file at `src/cli.ts` with a shebang line (`#!/usr/bin/env node`) and basic CLI functionality
+1. **Creates a CLI Entry Point**: Creates a file at `src/app.ts` with a shebang line (`#!/usr/bin/env node`) and basic CLI functionality
 2. **Updates tsconfig.json**: Ensures it includes all source files
 3. **Updates package.json**: Adds a `bin` field that maps the command name to the compiled CLI file
 4. **Updates prepare script**: Adds a command to make the CLI file executable (`chmod +x`)
@@ -176,17 +176,17 @@ echo "Next step: Build and Test"
 
 If you prefer to set up your executable package manually:
 
-1. Create a CLI file at `src/cli.ts` with a shebang line and your CLI functionality
+1. Create a CLI file at `src/app.ts` with a shebang line and your CLI functionality
 2. Make sure your `tsconfig.json` includes the CLI file in its compilation
 3. Add a `bin` field to your `package.json`:
    ```json
    "bin": {
-     "your-command-name": "./dist/cli.js"
+     "your-command-name": "./dist/app.js"
    }
    ```
 4. Update the prepare script to make the CLI file executable:
    ```json
-   "prepare": "npm run build && chmod +x ./dist/cli.js"
+   "prepare": "npm run build && chmod +x ./dist/app.js"
    ```
 
 ## Example CLI Implementation
@@ -199,7 +199,7 @@ npm install commander
 npm install --save-dev @types/node
 ```
 
-Then update your `src/cli.ts`:
+Then update your `src/app.ts`:
 
 ```typescript
 #!/usr/bin/env node
