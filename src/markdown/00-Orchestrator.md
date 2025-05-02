@@ -179,12 +179,12 @@ my-typescript-package/
 ├── dist/                 (generated)
 │   ├── index.js
 │   ├── index.d.ts
-│   └── cli.js            (if executable)
+│   └── app.js            (if executable)
 ├── node_modules/         (not committed)
 ├── package.json
 ├── src/
 │   ├── index.ts
-│   └── cli.ts            (if executable)
+│   └── app.ts            (if executable)
 ├── tests/
 │   └── index.test.ts
 └── tsconfig.json

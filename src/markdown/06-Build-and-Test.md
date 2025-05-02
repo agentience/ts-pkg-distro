@@ -120,11 +120,11 @@ if grep -q "bin_field=true" ts_package_assessment.txt || grep -q "\"bin\":" pack
   if [ -n "$COMMAND_NAME" ]; then
     echo "📦 Testing executable package..."
     
-    # Check if cli.js is executable
-    if [ -f "$OUT_DIR/cli.js" ]; then
-      if [ ! -x "$OUT_DIR/cli.js" ]; then
-        echo "Making $OUT_DIR/cli.js executable..."
-        chmod +x "$OUT_DIR/cli.js"
+    # Check if app.js is executable
+    if [ -f "$OUT_DIR/app.js" ]; then
+      if [ ! -x "$OUT_DIR/app.js" ]; then
+        echo "Making $OUT_DIR/app.js executable..."
+        chmod +x "$OUT_DIR/app.js"
       fi
       
       echo "You can test your CLI with: npx $COMMAND_NAME [arguments]"
@@ -136,7 +136,7 @@ if grep -q "bin_field=true" ts_package_assessment.txt || grep -q "\"bin\":" pack
         npx $COMMAND_NAME
       fi
     else
-      echo "❌ $OUT_DIR/cli.js doesn't exist. Make sure your CLI entry point compiles correctly."
+      echo "❌ $OUT_DIR/app.js doesn't exist. Make sure your CLI entry point compiles correctly."
     fi
   fi
 fi
